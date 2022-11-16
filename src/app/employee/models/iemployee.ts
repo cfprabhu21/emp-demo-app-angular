@@ -1,4 +1,4 @@
-interface Phone {
+export interface Phone {
     phone: string;
 }
 

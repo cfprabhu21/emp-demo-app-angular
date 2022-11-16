@@ -18,12 +18,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+import { PhoneNumberPipe } from '../custom-pipe/phone-number.pipe';
 
 
 @NgModule({
   declarations: [
     ManageEmployeeComponent,
-    EmployeeFormComponent
+    EmployeeFormComponent,
+    PhoneNumberPipe,
   ],
   imports: [
     CommonModule,

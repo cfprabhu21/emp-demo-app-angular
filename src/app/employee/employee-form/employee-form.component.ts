@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EmployeeFormComponent implements OnInit {
   public fg!: FormGroup;
 
-  public roles: string[] = ['Admin', 'manager', 'HR', 'Developer'];
+  public roles: string[] = ['Admin', 'Manager', 'HR', 'Developer'];
 
   public today = new Date();
 
@@ -103,7 +103,7 @@ export class EmployeeFormComponent implements OnInit {
   public submitForm(): void {
     if (this.fg.valid) {
       this._empService.save(this.fg.value);
-      this._snackBar.open('Employee was saved successfully', '', { duration: 2500});
+      this._snackBar.open('Employee was saved successfully', '', { duration: 2500, horizontalPosition: 'right', verticalPosition: 'top'});
       this._router.navigate(['/employee']);
     }
   }  

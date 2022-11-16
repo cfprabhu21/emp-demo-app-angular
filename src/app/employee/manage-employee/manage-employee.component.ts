@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Iemployee } from '../models/iemployee';
+import { Iemployee, Phone } from '../models/iemployee';
 import { EmployeeService } from '../services/employee.service';
 import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -12,12 +13,13 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./manage-employee.component.scss']
 })
 export class ManageEmployeeComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'gender', 'dateOfBirth', 'address', 'action'];
+  displayedColumns: string[] = ['name', 'gender', 'dateOfBirth', 'address', 'phones', 'action'];
   dataSource = new MatTableDataSource<Iemployee>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
+    private _snackBar: MatSnackBar,
     private _empService: EmployeeService,
     private readonly title: Title,
   ) {
@@ -25,9 +27,7 @@ export class ManageEmployeeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log(this._empService.getAllEmployees());
     this.dataSource.data = this._empService.getAllEmployees();
-    console.log(this.dataSource.data)
   }
 
   ngAfterViewInit() {
@@ -40,6 +40,7 @@ export class ManageEmployeeComponent implements OnInit, AfterViewInit {
     data.splice(index, 1);
     this.dataSource.data = data;
     localStorage.setItem('empList', JSON.stringify(data));
+    this._snackBar.open('Employee was deleted successfully', '', { duration: 2500, horizontalPosition: 'right', verticalPosition: 'top'});
   };
 
 }

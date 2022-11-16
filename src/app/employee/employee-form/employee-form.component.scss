@@ -1,0 +1,41 @@
+mat-form-field {
+    width: 100%;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.radio-group-btn {
+    margin-bottom: 1.5em;
+}
+
+.emp-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone-input-container-wrapper {
+    // mat-form-field {
+    //     width: 90%;
+    // }
+    button {
+        margin-left: 1rem;
+    }
+}
+.phone-wrapper {
+	display: flex;
+    justify-content: space-between;
+}
+.btn {
+    margin-top: 8px;
+}
+.btn-right {
+	display: flex;
+    justify-content: end;
+}
+
+.cancel-cta{
+    margin-left: 1rem;
+}

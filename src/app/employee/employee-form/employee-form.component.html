@@ -1,0 +1,98 @@
+<div class="emp-form">
+    <mat-card class="example-card">
+        <mat-card-title>Create Employee</mat-card-title>
+        <mat-card-content>
+
+            <form [formGroup]="fg" (ngSubmit)="submitForm()" novalidate>
+                <!-- Name -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input id="name" matInput placeholder="Name" formControlName="name">
+                    <mat-error *ngIf="nameField.hasError('required')">
+                        Required field.
+                    </mat-error>
+                    <mat-error *ngIf="nameField.hasError('maxlength')">
+                        Maximum of 256 characters.
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="radio-group-btn">
+                    <label>Gender: </label>
+                    <mat-radio-group formControlName="gender">
+                        <mat-radio-button value="m">Male</mat-radio-button>
+                        <mat-radio-button value="f">Female</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="genderField.hasError('required')">
+                        Required field.
+                    </mat-error>
+                </div>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput required [matDatepicker]="dp" formControlName="dateOfBirth" id="dateOfBirth"
+                        [disabled]='true' [max]="today" />
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    <mat-datepicker #dp startView="multi-year" disabled="false">
+                    </mat-datepicker>
+                    <mat-error *ngIf="dateOfBirthField.hasError('required')">
+                        Required field.
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Address -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput formControlName="address" rows="10" cols="50"></textarea>
+                    <mat-error *ngIf="addressField.hasError('required')">
+                        Required field.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role" name="role">
+                        <mat-option *ngFor="let role of roles" [value]="role">
+                            {{role}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="roleField.hasError('required')">
+                        Required field.
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="phone-input-container">
+                    <div class="phone-input-container-wrapper">
+                        <ng-container formArrayName="phones">
+                            <ng-container *ngFor="let phoneForm of phoneArray.controls; let i=index"
+                                [formGroupName]="i">
+                                <div class="phone-wrapper">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Phone</mat-label>
+                                        <input matInput placeholder="Phone" formControlName="phone" maxlength="10"
+                                            (keypress)="numbersOnly($event)">
+                                        <mat-error *ngIf="getValidity(i).invalid">
+                                            Required field.
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <button class="phone-delete-cta" *ngIf="phoneArray.length > 1" mat-mini-fab
+                                        color="accent" aria-label="phone number delete CTA" class="btn"
+                                        (click)="deletePhoneItem(i);">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="btn-right">
+                    <button mat-raised-button color="primary" (click)="addPhoneItem()"
+                        [disabled]="fg.invalid || phoneArray.invalid">Add</button>
+                </div>
+                <button type="submit" mat-raised-button color="primary">Save</button>
+                <button class="cancel-cta" mat-raised-button color="warn" (click)="$event.stopPropagation();"
+                    [routerLink]="['/employee']">Cancel</button>
+            </form>
+
+        </mat-card-content>
+    </mat-card>
+</div>
